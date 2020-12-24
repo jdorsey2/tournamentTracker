@@ -66,6 +66,10 @@ namespace P_Tracker_3
             team.score = Int32.Parse(numberScore);
         }
         
+        public void DisplayName(Team team)
+        {
+            Console.WriteLine(team.name);
+        }
         public void DisplayTeam(Team team)
         {
             Console.WriteLine(team.name);

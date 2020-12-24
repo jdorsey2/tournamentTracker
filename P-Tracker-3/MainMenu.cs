@@ -43,5 +43,35 @@ namespace P_Tracker_3
             Console.WriteLine("________________________________________________________________");
             Console.WriteLine();
         }
+
+        public static void DisplaySubMenu()
+        {
+            Console.WriteLine();
+            Console.WriteLine("####################################");
+            Console.WriteLine("##### Sub-Menu: Display Options ####");
+            Console.WriteLine("####################################");
+            Console.WriteLine();
+            Console.WriteLine("Please Select an option");
+            Console.WriteLine("******************************************************************************************************");
+            Console.WriteLine("A. Display All Teams------B. Display Matched Teams------C. Display Winners------E. Exit to Main Menu");
+            Console.WriteLine();
+            Console.WriteLine("*******************************************************************************************************");
+            Console.WriteLine();
+        }
+
+        public static void EnterTeamsSubMenu()
+        {
+            Console.WriteLine();
+            Console.WriteLine("####################################");
+            Console.WriteLine("##### Sub-Menu: Display Options ####");
+            Console.WriteLine("####################################");
+            Console.WriteLine();
+            Console.WriteLine("Please Select an option");
+            Console.WriteLine("***************************************************************************");
+            Console.WriteLine("A. Enter All Teams------B. Match Teams Together------C. Exit to Main Menu");
+            Console.WriteLine();
+            Console.WriteLine("***************************************************************************");
+            Console.WriteLine();
+        }
     }
 }

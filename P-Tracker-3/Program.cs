@@ -121,26 +121,58 @@ namespace P_Tracker_3
 
                 if (input == "A")   // Enter all teams 
                 {
-                    // put more details in later (members, etc)
-                    for (int i = 0; i < teams.Length; i++)
+                    string teamsInput = "";
+
+                    while (true)
                     {
-                        teams[i].EnterName(teams[i]);               // Method from Team.cs
+                        MainMenu.EnterTeamsSubMenu();
+                        teamsInput = Console.ReadLine();
+                        teamsInput = teamsInput.ToUpper();
+                        if (teamsInput == "A")
+                        {
+                            // put more details in later (members, etc)
+                            for (int i = 0; i < teams.Length; i++)
+                            {
+                                teams[i].EnterName(teams[i]);               // Method from Team.cs
+                            }
+
+                        }
+                        else if (teamsInput == "B")
+                        {
+                            Console.WriteLine("Please select from the following teams: ");
+                            for (int i = 0; i < teams.Length; i++)
+                            {
+                                teams[i].DisplayName(teams[i]);                                 // from Team.cs
+                                Console.WriteLine("-------------------------------");
+                            }
+
+
+
+                            // Match Teams in competitions
+                            Team teamOne = new Team();
+                            Team teamTwo = new Team();
+                            Play playRecord = new Play();
+
+                            for (int i = 0; i < playsArray.Length; i++)         // series of plays or matches stored in playArray
+                            {
+                                teamOne = EnterAndCheckTeam(teams);           // as defined in class Program above
+                                teamTwo = EnterAndCheckTeam(teams);
+                                playRecord = playRecord.ConvertTeamsToPlay(teamOne, teamTwo); // from Play.cs
+
+                                playsArray[i] = playRecord;
+                            }
+                        }
+                        else if (teamsInput == "C") //exit to main menu
+                        {
+                            break;
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please select one of the sub-menu options");
+                        } 
                     }
-
-                    // Match Teams in competitions
-                    Team teamOne = new Team();
-                    Team teamTwo = new Team();
-                    Play playRecord = new Play();
-
-                    for (int i = 0; i < playsArray.Length; i++)         // series of plays or matches stored in playArray
-                    {
-                        teamOne = EnterAndCheckTeam(teams);           // as defined in class Program above
-                        teamTwo = EnterAndCheckTeam(teams);
-                        playRecord = playRecord.ConvertTeamsToPlay(teamOne, teamTwo); // from Play.cs
-
-                        playsArray[i] = playRecord;
-                    }
-
+                    
                 }
                 else if (input == "B")  // enter scores for each team
                 {
@@ -168,52 +200,77 @@ namespace P_Tracker_3
                 }
                 else if (input == "D")
                 {
-                    bool ArrayIsNull = false;
-                    for (int i = 0; i < teams.Length; i++)
+                    while (true)
                     {
-                        if (teams[i].score == 0)        // testing for any scores not entered yet
+                        MainMenu.DisplaySubMenu();
+                        string displayInput = "";
+                        displayInput = Console.ReadLine();
+                        displayInput = displayInput.ToUpper();
+
+                        if (displayInput == "A") // display all teams
                         {
-                            Console.WriteLine("please enter a score or create a team and try again");
-                            ArrayIsNull = true;
-                        }
-                    }
-
-                    // ######## Display all teams information ################################
-
-                    Console.WriteLine("Here is a list of all teams: ");
-                    for (int i = 0; i < teams.Length; i++)
-                    {
-                        teams[i].DisplayTeam(teams[i]);                                 // from Team.cs
-                        Console.WriteLine("-------------------------------");
-                    }
-                    Console.WriteLine("################################################################");
-
-                    // ####### Display how teams are matched together with scores ############
-
-                    Console.WriteLine("Here is the breakdown according to who plays who: ");
-
-                    Team[] teamArray = new Team[2]; // new array of teams for storage
-                    for (int i = 0; i < teamArray.Length; i++)
-                    {
-                        teamArray[i] = new Team();
-                    }
-
-                    while (!ArrayIsNull)
-                    {
-                        ArrayIsNull = true;
-                        for (int i = 0; i < playsArray.Length; i++)
-                        {
-                            teamArray = playsArray[i].ConvertFromPlayToTeamArray(playsArray[i]);    // from Play.cs
-
-                            for (int j = 0; j < teamArray.Length; j++)
+                            Console.WriteLine("Here is a list of all teams: ");
+                            for (int i = 0; i < teams.Length; i++)
                             {
-                                teamArray[j].DisplayTeam(teamArray[j]);                      // from Team.cs
+                                teams[i].DisplayTeam(teams[i]);                                 // from Team.cs
+                                Console.WriteLine("-------------------------------");
                             }
-                            Console.WriteLine("------------------------------------------");
+                            Console.WriteLine("################################################################");
+
                         }
+                        else if (displayInput == "B") // display matched teams
+                        {
+                            bool ArrayIsNull = false;
+                            for (int i = 0; i < teams.Length; i++)
+                            {
+                                if (teams[i].score == 0)        // testing for any scores not entered yet
+                                {
+                                    Console.WriteLine("please enter a score or create a team and try again");
+                                    ArrayIsNull = true;
+                                }
+                            }
+
+                            Console.WriteLine("Here is the breakdown according to who plays who: ");
+
+                            Team[] teamArray = new Team[2]; // new array of teams for storage
+                            for (int i = 0; i < teamArray.Length; i++)
+                            {
+                                teamArray[i] = new Team();
+                            }
+
+                            while (!ArrayIsNull)
+                            {
+                                ArrayIsNull = true;
+                                for (int i = 0; i < playsArray.Length; i++)
+                                {
+                                    teamArray = playsArray[i].ConvertFromPlayToTeamArray(playsArray[i]);    // from Play.cs
+
+                                    for (int j = 0; j < teamArray.Length; j++)
+                                    {
+                                        teamArray[j].DisplayTeam(teamArray[j]);                      // from Team.cs
+                                    }
+                                    Console.WriteLine("------------------------------------------");
+                                }
+                            }
+                        }
+                        else if (displayInput == "C") // winners
+                        {
+                            for (int i = 0; i < winnerSeries.Length; i++)
+                            {
+                                Console.WriteLine("Winners are: ");
+                                Console.WriteLine($"Name: {winnerSeries[i].name}");
+                                Console.WriteLine($"Score: {winnerSeries[i].score}");
+                            }
+                        }else if (displayInput == "E") // exit to main menu
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            // error
+                        } 
                     }
-
-
+                    
                 }
                 else if (input == "G") // graphical display of results, not working yet
                 {

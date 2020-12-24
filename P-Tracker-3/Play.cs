@@ -57,7 +57,6 @@ namespace P_Tracker_3
         
         void DeleteTeam(Team team)
         {
-            team.name = "";
             team.score = -1;
             exist = false;
         }

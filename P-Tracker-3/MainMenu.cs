@@ -18,7 +18,7 @@ namespace P_Tracker_3
             Console.WriteLine("##### Main Menu: ####");
             Console.WriteLine("#####################");
             Console.WriteLine();
-            Console.WriteLine("Please Select an option");
+            Console.WriteLine("Please Select an option: To start select A first to set up teams, then select B to enter scores");
             Console.WriteLine("*******************************************************************************************************************************************************************************************************************");
             Console.WriteLine("A. Setup a tournament------B. Enter scores------C. Calculate winner------D. Display------F. Find Name/Team------G. Graphical Display------U. Update/Delete teams------S. To Save------E. To Exit this Program");
             Console.WriteLine();
@@ -62,9 +62,9 @@ namespace P_Tracker_3
         public static void EnterTeamsSubMenu()
         {
             Console.WriteLine();
-            Console.WriteLine("####################################");
-            Console.WriteLine("##### Sub-Menu: Display Options ####");
-            Console.WriteLine("####################################");
+            Console.WriteLine("########################################");
+            Console.WriteLine("##### Sub-Menu: Enter Teams Options ####");
+            Console.WriteLine("########################################");
             Console.WriteLine();
             Console.WriteLine("Please Select an option");
             Console.WriteLine("***************************************************************************");

@@ -32,16 +32,26 @@ namespace P_Tracker_3
             while (goingFlag)
             {
                 goingFlag = false;
-                Console.WriteLine("Please enter the name of a team to be matched");
+                Console.WriteLine("Please enter the name of a team to be matched, or enter \"QUIT\" twice to go back to the sub-menu");
                 teamName = Console.ReadLine();
+                teamName = teamName.ToUpper();
 
+                if (teamName == "QUIT")
+                {
+                    break;
+                }
                 if (teamName.Length > 25)
                 {
                     goingFlag = true;
                     Console.WriteLine("Please enter a name less than 25 letters long");
                 }
+                if (teamName == "" || teamName == " ")
+                {
+                    goingFlag = true;
+                    Console.WriteLine("Please enter a team name first, please press enter");
+                    break;
+                }
             }
-            teamName = teamName.ToUpper();
 
             for (int i = 0; i < teams.Length; i++)          // check if name exists
             {
@@ -121,6 +131,7 @@ namespace P_Tracker_3
 
                 if (input == "A")   // Enter all teams 
                 {
+                    bool nullValue = false;
                     string teamsInput = "";
 
                     while (true)
@@ -135,18 +146,16 @@ namespace P_Tracker_3
                             {
                                 teams[i].EnterName(teams[i]);               // Method from Team.cs
                             }
-
                         }
                         else if (teamsInput == "B")
                         {
+
                             Console.WriteLine("Please select from the following teams: ");
                             for (int i = 0; i < teams.Length; i++)
                             {
                                 teams[i].DisplayName(teams[i]);                                 // from Team.cs
                                 Console.WriteLine("-------------------------------");
                             }
-
-
 
                             // Match Teams in competitions
                             Team teamOne = new Team();
@@ -170,25 +179,41 @@ namespace P_Tracker_3
                         else
                         {
                             Console.WriteLine("Please select one of the sub-menu options");
-                        } 
+                        }
                     }
-                    
+
                 }
                 else if (input == "B")  // enter scores for each team
                 {
+                    bool nullFlag = false;
                     for (int i = 0; i < teams.Length; i++)
                     {
-                        Console.Write($"{teams[i].name}: ");
-                        teams[i].EnterScores(teams[i]);                     // from Team.cs
+                        if (teams[i].name == null)
+                        {
+                            nullFlag = true;
+                        }
+                        else
+                        {
+                            Console.Write($"{teams[i].name}: ");
+                            teams[i].EnterScores(teams[i]);                     // from Team.cs
+                        }
                     }
 
-                    Console.WriteLine();
-                    Console.WriteLine("Please verify scores: ");
-                    Console.WriteLine();
-
-                    for (int i = 0; i < teams.Length; i++)
+                    if (nullFlag == true)
                     {
-                        teams[i].DisplayTeam(teams[i]);                     // from Team.cs
+                        Console.WriteLine("Please enter a team name before entering score");
+                    }
+
+                    if (nullFlag == false)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Please verify scores: ");
+                        Console.WriteLine();
+
+                        for (int i = 0; i < teams.Length; i++)
+                        {
+                            teams[i].DisplayTeam(teams[i]);                     // from Team.cs
+                        }
                     }
                 }
                 else if (input == "C")  // calculates scores and returns winners for one round of tournaments
@@ -197,6 +222,7 @@ namespace P_Tracker_3
                     {
                         winnerSeries[i] = playsArray[i].CompareScores(playsArray[i].teamOne, playsArray[i].teamTwo); // from Play.cs
                     }
+                    Console.WriteLine("scores are now calculated");
                 }
                 else if (input == "D")
                 {
@@ -261,16 +287,17 @@ namespace P_Tracker_3
                                 Console.WriteLine($"Name: {winnerSeries[i].name}");
                                 Console.WriteLine($"Score: {winnerSeries[i].score}");
                             }
-                        }else if (displayInput == "E") // exit to main menu
+                        }
+                        else if (displayInput == "E") // exit to main menu
                         {
                             break;
                         }
                         else
                         {
                             // error
-                        } 
+                        }
                     }
-                    
+
                 }
                 else if (input == "G") // graphical display of results, not working yet
                 {

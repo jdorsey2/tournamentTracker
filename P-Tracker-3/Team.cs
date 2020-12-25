@@ -40,9 +40,21 @@ namespace P_Tracker_3
             {
                 keepGoing = false;
 
-                Console.WriteLine("enter name");
+                Console.WriteLine("enter name or enter \"QUIT\" twice to go back to the sub-menu");
                 string wordOne = Console.ReadLine();
                 wordOne = wordOne.ToUpper();
+
+                if (wordOne == "QUIT")
+                {
+                    wordOne = "";
+                    break;
+                }
+                
+                if (wordOne == "" || wordOne == " " || wordOne == "  ")
+                {
+                    keepGoing = true;
+                    Console.WriteLine("Please enter a value, or enter \"QUIT\" twice to exit");
+                }
 
                 if (wordOne.Length > 25)
                 {
@@ -50,7 +62,6 @@ namespace P_Tracker_3
                     Console.WriteLine("Please limit to under 25 characters");
                 }
                 
-            
                 team.name = wordOne; 
             }
         }
@@ -72,7 +83,7 @@ namespace P_Tracker_3
         }
         public void DisplayTeam(Team team)
         {
-            Console.WriteLine(team.name);
+            Console.WriteLine($"name: {team.name}");
             Console.WriteLine($"score: {team.score}");
         }
     }

@@ -93,7 +93,47 @@ namespace P_Tracker_3
                 Console.WriteLine("Please enter a team name first");
                 return new Team();
             }
-            
         }
+
+        public Team EnterAndCheckTeam(Team[] teams)  // used under option A, when matching teams
+        {                                                  // allows for user to enter name of team and it checks if it exists and returns a Team
+            Team team = new Team();
+            bool goingFlag = true;
+            string teamName = "";
+
+            while (goingFlag)
+            {
+                goingFlag = false;
+                Console.WriteLine("Please enter the name of a team to be matched, or enter \"QUIT\" twice to go back to the sub-menu");
+                teamName = Console.ReadLine();
+                teamName = teamName.ToUpper();
+
+                if (teamName == "QUIT")
+                {
+                    break;
+                }
+                if (teamName.Length > 25)
+                {
+                    goingFlag = true;
+                    Console.WriteLine("Please enter a name less than 25 letters long");
+                }
+                if (teamName == "" || teamName == " ")
+                {
+                    goingFlag = true;
+                    Console.WriteLine("Please enter a team name first, please press enter");
+                    break;
+                }
+            }
+
+            for (int i = 0; i < teams.Length; i++)          // check if name exists
+            {
+                if (teamName == teams[i].name)
+                {
+                    team = teams[i];
+                }
+            }
+            return team;
+        }
+
     }
 }

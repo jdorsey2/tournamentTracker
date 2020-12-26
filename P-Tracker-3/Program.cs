@@ -23,85 +23,53 @@ namespace P_Tracker_3
 {
     class Program
     {
-        public static Team EnterAndCheckTeam(Team[] teams)  // used under option A, when matching teams
-        {                                                  // allows for user to enter name of team and it checks if it exists and returns a Team
-            Team team = new Team();
-            bool goingFlag = true;
-            string teamName = "";
-
-            while (goingFlag)
-            {
-                goingFlag = false;
-                Console.WriteLine("Please enter the name of a team to be matched, or enter \"QUIT\" twice to go back to the sub-menu");
-                teamName = Console.ReadLine();
-                teamName = teamName.ToUpper();
-
-                if (teamName == "QUIT")
-                {
-                    break;
-                }
-                if (teamName.Length > 25)
-                {
-                    goingFlag = true;
-                    Console.WriteLine("Please enter a name less than 25 letters long");
-                }
-                if (teamName == "" || teamName == " ")
-                {
-                    goingFlag = true;
-                    Console.WriteLine("Please enter a team name first, please press enter");
-                    break;
-                }
-            }
-
-            for (int i = 0; i < teams.Length; i++)          // check if name exists
-            {
-                if (teamName == teams[i].name)
-                {
-                    team = teams[i];
-                }
-            }
-            return team;
-        }
+        
 
         static void Main(string[] args)
         {
             //######### Determines array sizes ###########################################
 
             string size = "";
+            int numberTeams = 0;
             bool keepGoing = true;
 
             while (keepGoing)       // error checking 
             {
                 keepGoing = false;
-                bool isNumber = true;
 
-                Console.WriteLine("Please enter how many teams there are");
-                size = Console.ReadLine();
+                Menu.SuperMenu();
+                string inputMain = Console.ReadLine();
+                inputMain = inputMain.ToUpper();
 
-                foreach (char letter in size)
+                if (inputMain == "A")
                 {
-                    if (char.IsPunctuation(letter) || char.IsLetter(letter))
-                    {
-                        keepGoing = true;
-                        isNumber = false;
-                    }
-                }
+                    size = ErrorChecking.EnsureDigit();         // from ErrorChecking.cs
+                    size = ErrorChecking.EnsureLength(size);    // from ErrorChecking.cs
+                    numberTeams = Int32.Parse(size);
+                    numberTeams = ErrorChecking.EnsureEven(numberTeams);  // from ErrorChecking.cs
 
-                if (size.Length > 25)
+                }
+                else if (inputMain == "B")
                 {
                     keepGoing = true;
-                    Console.WriteLine("Please limit the length to under 25");
-                }
-
-                if (isNumber == false)
+                    Console.WriteLine("This option is currently not available, please create a new tournament");
+                    //load program
+                }else if (inputMain == "C")
                 {
-                    Console.WriteLine("Please try again, enter only digits");
+                    Environment.Exit(0);
+                }else if (inputMain == "D")
+                {
+                    keepGoing = true;
+                    Help.Pages();
+                }else
+                {
+                    Console.WriteLine("Please select either A, B, C, or D");
+                    keepGoing = true;
                 }
             }
 
             //######### Global Variables ################################################
-
-            int numberTeams = Int32.Parse(size);
+            
             int numberMatches = numberTeams / 2;            // one on one matches necessitates dividing by 2
 
             Team[] teams = new Team[numberTeams];
@@ -125,18 +93,17 @@ namespace P_Tracker_3
 
             while (true)
             {
-                MainMenu.Display();
+                Menu.Display();
                 input = Console.ReadLine();
                 input = input.ToUpper();
 
                 if (input == "A")   // Enter all teams 
                 {
-                    bool nullValue = false;
                     string teamsInput = "";
 
                     while (true)
                     {
-                        MainMenu.EnterTeamsSubMenu();
+                        Menu.EnterTeamsSubMenu();
                         teamsInput = Console.ReadLine();
                         teamsInput = teamsInput.ToUpper();
                         if (teamsInput == "A")
@@ -164,8 +131,8 @@ namespace P_Tracker_3
 
                             for (int i = 0; i < playsArray.Length; i++)         // series of plays or matches stored in playArray
                             {
-                                teamOne = EnterAndCheckTeam(teams);           // as defined in class Program above
-                                teamTwo = EnterAndCheckTeam(teams);
+                                teamOne = playRecord.EnterAndCheckTeam(teams);           // from Play.cs
+                                teamTwo = playRecord.EnterAndCheckTeam(teams);
                                 playRecord = playRecord.ConvertTeamsToPlay(teamOne, teamTwo); // from Play.cs
 
                                 playsArray[i] = playRecord;
@@ -174,7 +141,6 @@ namespace P_Tracker_3
                         else if (teamsInput == "C") //exit to main menu
                         {
                             break;
-
                         }
                         else
                         {
@@ -228,7 +194,7 @@ namespace P_Tracker_3
                 {
                     while (true)
                     {
-                        MainMenu.DisplaySubMenu();
+                        Menu.DisplaySubMenu();
                         string displayInput = "";
                         displayInput = Console.ReadLine();
                         displayInput = displayInput.ToUpper();
@@ -298,6 +264,12 @@ namespace P_Tracker_3
                         }
                     }
 
+                }else if (input == "E") // enter another round of tournaments
+                {
+
+                }else if (input == "F") // find team name
+                {
+
                 }
                 else if (input == "G") // graphical display of results, not working yet
                 {
@@ -309,7 +281,7 @@ namespace P_Tracker_3
                     string menuInput = "";
                     while (true)
                     {
-                        MainMenu.UpdateMenu();
+                        Menu.UpdateMenu();
                         menuInput = Console.ReadLine();
                         menuInput = menuInput.ToUpper();
                         if (menuInput == "1")
@@ -335,7 +307,7 @@ namespace P_Tracker_3
                 {
 
                 }
-                else if (input == "E") //exit
+                else if (input == "Q") //exit
                 {
                     Environment.Exit(0);
                 }

@@ -19,10 +19,17 @@ namespace P_Tracker_3
             Console.WriteLine("#####################");
             Console.WriteLine();
             Console.WriteLine("Please Select an option: To start select A first to set up teams, then select B to enter scores");
-            Console.WriteLine("*******************************************************************************************************************************************************************************************************************");
-            Console.WriteLine("A. Setup a tournament------B. Enter scores------C. Calculate winner------D. Display------F. Find Name/Team------G. Graphical Display------U. Update/Delete teams------S. To Save------E. To Exit this Program");
-            Console.WriteLine();
-            Console.WriteLine("*******************************************************************************************************************************************************************************************************************");
+            Console.WriteLine("*************************************************************************************************");
+            Console.WriteLine("A. Setup a tournament");
+            Console.WriteLine("B. Enter scores");
+            Console.WriteLine("C. Calculate winner");
+            Console.WriteLine("D. Display");
+            Console.WriteLine("F. Find Name/Team");
+            Console.WriteLine("G. Graphical Display");
+            Console.WriteLine("U. Update/Delete teams");
+            Console.WriteLine("S. To Save");
+            Console.WriteLine("E. To Exit this Program");
+            Console.WriteLine("**************************************************************************************************");
             Console.WriteLine();
         }
 
@@ -35,12 +42,9 @@ namespace P_Tracker_3
             Console.WriteLine("Please select an operation to perform");
             Console.WriteLine("***************************************");
             Console.WriteLine("1. To Update a team");
-            Console.WriteLine("-----------------------------");
             Console.WriteLine("2. To Delete a team");
-            Console.WriteLine("-----------------------------");
             Console.WriteLine("3. To Go back to the Main Menu");
-            Console.WriteLine("-----------------------------");
-            Console.WriteLine("________________________________________________________________");
+            Console.WriteLine("****************************************");
             Console.WriteLine();
         }
 
@@ -52,10 +56,12 @@ namespace P_Tracker_3
             Console.WriteLine("####################################");
             Console.WriteLine();
             Console.WriteLine("Please Select an option");
-            Console.WriteLine("******************************************************************************************************");
-            Console.WriteLine("A. Display All Teams------B. Display Matched Teams------C. Display Winners------E. Exit to Main Menu");
-            Console.WriteLine();
-            Console.WriteLine("*******************************************************************************************************");
+            Console.WriteLine("*************************************");
+            Console.WriteLine("A. Display All Teams");
+            Console.WriteLine("B. Display Matched Teams");
+            Console.WriteLine("C. Display Winners");
+            Console.WriteLine("E. Exit to Main Menu");
+            Console.WriteLine("**************************************");
             Console.WriteLine();
         }
 
@@ -67,11 +73,11 @@ namespace P_Tracker_3
             Console.WriteLine("########################################");
             Console.WriteLine();
             Console.WriteLine("Please Select an option");
-            Console.WriteLine("***************************************************************************");
-            Console.WriteLine("A. Enter All Teams------B. Match Teams Together------C. Exit to Main Menu");
-            Console.WriteLine();
-            Console.WriteLine("***************************************************************************");
-            Console.WriteLine();
+            Console.WriteLine("***************************************");
+            Console.WriteLine("A. Enter All Teams");
+            Console.WriteLine("B. Match Teams Together");
+            Console.WriteLine("C. Exit to Main Menu");
+            Console.WriteLine("***************************************");
         }
     }
 }

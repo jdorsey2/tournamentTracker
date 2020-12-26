@@ -16,16 +16,42 @@ namespace P_Tracker_3
             while (keepGoing)
             {
                 keepGoing = false;
-                Console.WriteLine("Please enter how many teams there are, only enter an even number");
+                bool isDigit = true;
                 input = Console.ReadLine();
 
                 foreach (char letter in input)
                 {
                     if (char.IsPunctuation(letter) || char.IsLetter(letter))
                     {
+                        isDigit = false;
                         keepGoing = true;
                     }
                 } 
+                if (isDigit == false)
+                {
+                    Console.WriteLine("Please try again, enter only digits");
+                }
+            }
+            return input;
+        }
+
+        public static string EnsureDigit(string input)
+        {
+            bool keepGoing = true;
+
+            while (keepGoing)
+            {
+                keepGoing = false;
+
+                foreach (char letter in input)
+                {
+                    if (char.IsPunctuation(letter) || char.IsLetter(letter))
+                    {
+                        keepGoing = true;
+                        Console.WriteLine("Please enter a digit only");
+                        input = Console.ReadLine();
+                    }
+                }
             }
             return input;
         }

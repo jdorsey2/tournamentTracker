@@ -15,10 +15,11 @@ namespace P_Tracker_3
         {
             Console.WriteLine("Welcome to Tournament Tracker");
             Console.WriteLine();
-            Console.WriteLine("To Create a new Tracker press A");
-            Console.WriteLine("To load a previous Tracker press B");
-            Console.WriteLine("To Exit press C");
-            Console.WriteLine("For a Tutorial on how to use Tournament Tracker enter D");
+            Console.WriteLine("Please select an option to continue: ");
+            Console.WriteLine("A. To Create a new Tracker");
+            Console.WriteLine("B. To load a previous Tracker");
+            Console.WriteLine("C. To Exit program");
+            Console.WriteLine("D. For a Tutorial on how to use Tournament Tracker");
         }
         public static void Display()
         {
@@ -67,10 +68,10 @@ namespace P_Tracker_3
             Console.WriteLine();
             Console.WriteLine("Please Select an option");
             Console.WriteLine("*************************************");
-            Console.WriteLine("A. Display All Teams");
-            Console.WriteLine("B. Display Matched Teams");
-            Console.WriteLine("C. Display Winners");
-            Console.WriteLine("E. Exit to Main Menu");
+            Console.WriteLine("1. Display All Teams");
+            Console.WriteLine("2. Display Matched Teams");
+            Console.WriteLine("3. Display Winners");
+            Console.WriteLine("4. Exit to Main Menu");
             Console.WriteLine("**************************************");
             Console.WriteLine();
         }
@@ -84,9 +85,9 @@ namespace P_Tracker_3
             Console.WriteLine();
             Console.WriteLine("Please Select an option");
             Console.WriteLine("***************************************");
-            Console.WriteLine("A. Enter All Teams");
-            Console.WriteLine("B. Match Teams Together");
-            Console.WriteLine("C. Exit to Main Menu");
+            Console.WriteLine("1. Enter All Teams");
+            Console.WriteLine("2. Match Teams Together");
+            Console.WriteLine("3. Exit to Main Menu");
             Console.WriteLine("***************************************");
         }
     }

@@ -43,7 +43,10 @@ namespace P_Tracker_3
 
                 if (inputMain == "A")
                 {
-                    size = ErrorChecking.EnsureDigit();         // from ErrorChecking.cs
+                    Console.WriteLine("Please enter how many teams there are, only enter an even number");
+                    size = Console.ReadLine();
+
+                    size = ErrorChecking.EnsureDigit(size);         // from ErrorChecking.cs
                     size = ErrorChecking.EnsureLength(size);    // from ErrorChecking.cs
                     numberTeams = Int32.Parse(size);
                     numberTeams = ErrorChecking.EnsureEven(numberTeams);  // from ErrorChecking.cs
@@ -52,7 +55,9 @@ namespace P_Tracker_3
                 else if (inputMain == "B")
                 {
                     keepGoing = true;
+                    Console.WriteLine();
                     Console.WriteLine("This option is currently not available, please create a new tournament");
+                    Console.WriteLine();
                     //load program
                 }else if (inputMain == "C")
                 {
@@ -105,8 +110,9 @@ namespace P_Tracker_3
                     {
                         Menu.EnterTeamsSubMenu();
                         teamsInput = Console.ReadLine();
-                        teamsInput = teamsInput.ToUpper();
-                        if (teamsInput == "A")
+                        teamsInput = ErrorChecking.EnsureDigit(teamsInput);
+                        teamsInput = ErrorChecking.EnsureLength(teamsInput);
+                        if (teamsInput == "1")
                         {
                             // put more details in later (members, etc)
                             for (int i = 0; i < teams.Length; i++)
@@ -114,7 +120,7 @@ namespace P_Tracker_3
                                 teams[i].EnterName(teams[i]);               // Method from Team.cs
                             }
                         }
-                        else if (teamsInput == "B")
+                        else if (teamsInput == "2")
                         {
 
                             Console.WriteLine("Please select from the following teams: ");
@@ -138,7 +144,7 @@ namespace P_Tracker_3
                                 playsArray[i] = playRecord;
                             }
                         }
-                        else if (teamsInput == "C") //exit to main menu
+                        else if (teamsInput == "3") //exit to main menu
                         {
                             break;
                         }
@@ -188,7 +194,7 @@ namespace P_Tracker_3
                     {
                         winnerSeries[i] = playsArray[i].CompareScores(playsArray[i].teamOne, playsArray[i].teamTwo); // from Play.cs
                     }
-                    Console.WriteLine("scores are now calculated");
+                    Console.WriteLine("scores are now calculated"); // include conditional statements so it doesn't always display
                 }
                 else if (input == "D")
                 {
@@ -197,9 +203,10 @@ namespace P_Tracker_3
                         Menu.DisplaySubMenu();
                         string displayInput = "";
                         displayInput = Console.ReadLine();
-                        displayInput = displayInput.ToUpper();
+                        displayInput = ErrorChecking.EnsureDigit(displayInput);
+                        displayInput = ErrorChecking.EnsureLength(displayInput);
 
-                        if (displayInput == "A") // display all teams
+                        if (displayInput == "1") // display all teams
                         {
                             Console.WriteLine("Here is a list of all teams: ");
                             for (int i = 0; i < teams.Length; i++)
@@ -210,7 +217,7 @@ namespace P_Tracker_3
                             Console.WriteLine("################################################################");
 
                         }
-                        else if (displayInput == "B") // display matched teams
+                        else if (displayInput == "2") // display matched teams
                         {
                             bool ArrayIsNull = false;
                             for (int i = 0; i < teams.Length; i++)
@@ -245,7 +252,7 @@ namespace P_Tracker_3
                                 }
                             }
                         }
-                        else if (displayInput == "C") // winners
+                        else if (displayInput == "3") // winners
                         {
                             for (int i = 0; i < winnerSeries.Length; i++)
                             {
@@ -254,7 +261,7 @@ namespace P_Tracker_3
                                 Console.WriteLine($"Score: {winnerSeries[i].score}");
                             }
                         }
-                        else if (displayInput == "E") // exit to main menu
+                        else if (displayInput == "4") // exit to main menu
                         {
                             break;
                         }

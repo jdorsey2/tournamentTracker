@@ -10,7 +10,9 @@ namespace P_Tracker_3
     {
         public static void Pages()
         {
+            Console.WriteLine();
             Console.WriteLine($"Welcome to Tournament Tracker Help Me! Pages");
+            Console.WriteLine();
             Console.WriteLine("This Tracker keeps track of any kind of tournament. You enter how many teams" +
                 "you want to have if you create new teams by selecting option A. If this is your first time" +
                 "here please press A to create a new tournament. ");

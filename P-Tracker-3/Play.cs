@@ -57,28 +57,41 @@ namespace P_Tracker_3
         
         void DeleteTeam(Team team)
         {
-            team.name = "";
             team.score = -1;
             exist = false;
         }
         public Team CompareScores(Team one, Team two)
         {
-            if (one.score > two.score)
+            if (one != null || two != null)
             {
-                DeleteTeam(two);
-                one.advance = true;
-                return one;
-            }
-            else if (one.score < two.score)
+                if (one.score != 0 || two.score != 0)
+                {
+                    if (one.score > two.score)
+                    {
+                        DeleteTeam(two);
+                        one.advance = true;
+                        return one;
+                    }
+                    else if (one.score < two.score)
+                    {
+                        DeleteTeam(one);
+                        two.advance = true;
+                        return two;
+                    }
+                    else
+                    {
+                        Console.WriteLine("tie"); // have a tie, need additional functionality (elimination round) to deal with it
+                        return one; // fix later when tie functionality is updated
+                    }  
+                }else
+                {
+                    Console.WriteLine("Please enter a score");
+                    return new Team();
+                }
+            }else
             {
-                DeleteTeam(one);
-                two.advance = true;
-                return two;
-            }
-            else
-            {
-                Console.WriteLine("tie"); // have a tie, need additional functionality (elimination round) to deal with it
-                return one; // fix later when tie functionality is updated
+                Console.WriteLine("Please enter a team name first");
+                return new Team();
             }
             
         }

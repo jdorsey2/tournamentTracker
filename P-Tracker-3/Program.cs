@@ -23,13 +23,11 @@ namespace P_Tracker_3
 {
     class Program
     {
-        
-
         static void Main(string[] args)
         {
             //######### Determines array sizes ###########################################
 
-            string size = "";
+            int rounds = 0;
             int numberTeams = 0;
             bool keepGoing = true;
 
@@ -40,9 +38,10 @@ namespace P_Tracker_3
                 Menu.SuperMenu();
                 string inputMain = Console.ReadLine();
                 inputMain = inputMain.ToUpper();
-
+                
                 if (inputMain == "A")
                 {
+                    string size = "";
                     Console.WriteLine("Please enter how many teams there are, only enter an even number");
                     size = Console.ReadLine();
 
@@ -50,6 +49,14 @@ namespace P_Tracker_3
                     size = ErrorChecking.EnsureLength(size);    // from ErrorChecking.cs
                     numberTeams = Int32.Parse(size);
                     numberTeams = ErrorChecking.EnsureEven(numberTeams);  // from ErrorChecking.cs
+
+                    string round = "";
+                    Console.WriteLine("Please enter how many rounds the tournament will last");
+                    round = Console.ReadLine();
+
+                    round = ErrorChecking.EnsureDigit(round);
+                    round = ErrorChecking.EnsureLength(round);
+                    rounds = Int32.Parse(round);
 
                 }
                 else if (inputMain == "B")
@@ -75,7 +82,19 @@ namespace P_Tracker_3
 
             //######### Global Variables ################################################
             
-            int numberMatches = numberTeams / 2;            // one on one matches necessitates dividing by 2
+            int numberMatches = numberTeams / 2;  // one on one matches necessitates dividing by 2
+
+            // take number of rounds and divide each successive one by 2 to be used a length of winnerSeries array for each tournamemnt
+           
+            int newNumberTeams = numberTeams;
+            int[] roundsSizeArray = new int[rounds]; // roundsSizeArray gives us the size of the teams for each round
+            for (int i = 0; i < rounds; i++)    // divides number of teams into two for each round, 
+            {                                    // now i can use roundsSizeArray instead of numberTeams
+                newNumberTeams = newNumberTeams / 2;
+                roundsSizeArray[i] = newNumberTeams;  // figure out how to put numberTeams in array and numberMatches
+                
+            }
+             
 
             Team[] teams = new Team[numberTeams];
 
@@ -92,22 +111,23 @@ namespace P_Tracker_3
                 playsArray[i] = new Play();
                 winnerSeries[i] = new Team();
             }
-            string input = "";
+            
 
             // ########## Main Menu with implementation ##################################
 
             while (true)
             {
+                string input = "";
                 Menu.Display();
                 input = Console.ReadLine();
                 input = input.ToUpper();
 
                 if (input == "A")   // Enter all teams 
                 {
-                    string teamsInput = "";
-
                     while (true)
                     {
+                        string teamsInput = "";
+
                         Menu.EnterTeamsSubMenu();
                         teamsInput = Console.ReadLine();
                         teamsInput = ErrorChecking.EnsureDigit(teamsInput);
@@ -134,11 +154,19 @@ namespace P_Tracker_3
                             Team teamOne = new Team();
                             Team teamTwo = new Team();
                             Play playRecord = new Play();
-
+                            string name = "";
                             for (int i = 0; i < playsArray.Length; i++)         // series of plays or matches stored in playArray
                             {
-                                teamOne = playRecord.EnterAndCheckTeam(teams);           // from Play.cs
-                                teamTwo = playRecord.EnterAndCheckTeam(teams);
+                                Console.WriteLine("please enter team name");
+                                name = Console.ReadLine();
+                                name = name.ToUpper();
+                                name = playRecord.EnterTeam(name);
+                                teamOne = playRecord.CheckTeamsName(teams, name);
+                                Console.WriteLine("Please enter team name");         // from Play.cs
+                                name = Console.ReadLine();
+                                name = name.ToUpper();
+                                name = playRecord.EnterTeam(name);
+                                teamTwo = playRecord.CheckTeamsName(teams, name);
                                 playRecord = playRecord.ConvertTeamsToPlay(teamOne, teamTwo); // from Play.cs
 
                                 playsArray[i] = playRecord;
@@ -273,8 +301,69 @@ namespace P_Tracker_3
 
                 }else if (input == "E") // enter another round of tournaments
                 {
+                    string matchInput = "";
+                    
+                    Console.WriteLine("1. Match Teams");
+                    Console.WriteLine("2. Enter Scores");
+                    matchInput = Console.ReadLine();
 
-                }else if (input == "F") // find team name
+                    if (matchInput == "1")
+                    {
+                        // Match Teams in competitions
+                        Team teamOne = new Team();
+                        Team teamTwo = new Team();
+                        Play playRecord = new Play();
+                        //Team[] array = new Team[winnerSeries.Length];
+                        //for (int i = 0; i < array.Length; i++)
+                        //{
+                        //    array[i] = new Team();
+                        //}
+
+                        for (int i = 0; i < winnerSeries.Length; i++)         // series of plays or matches stored in playArray
+                        {
+                            Console.WriteLine("Please enter the name of a team to be matched, or enter \"QUIT\" twice to go back to the sub-menu");
+                            string teamName = Console.ReadLine();
+                            teamName = teamName.ToUpper();
+                            string name = playRecord.EnterTeam(teamName);
+                            teamOne = playRecord.CheckTeamsName(winnerSeries, name);
+                            Console.WriteLine("Please enter a team name to match");
+                            teamName = Console.ReadLine();
+                            teamName = teamName.ToUpper();
+                            name = playRecord.EnterTeam(teamName);
+                            teamTwo = playRecord.CheckTeamsName(winnerSeries, name);
+
+                            playRecord = playRecord.ConvertTeamsToPlay(teamOne, teamTwo); // from Play.cs
+
+                            playsArray[i] = playRecord;
+                        }
+
+                    }if (matchInput == "2")
+                    {
+                        bool nullFlag = false;
+                        for (int i = 0; i < teams.Length; i++)
+                        {
+                            if (teams[i].name == null)
+                            {
+                                nullFlag = true;
+                            }
+                            else
+                            {
+                                Console.Write($"{teams[i].name}: ");
+                                teams[i].EnterScores(teams[i]);                     // from Team.cs
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please enter one of the options displayed");
+                    }
+
+                    
+                    
+
+                    
+                }
+                else if (input == "F") // find team name
                 {
 
                 }

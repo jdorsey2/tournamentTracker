@@ -95,19 +95,14 @@ namespace P_Tracker_3
             }
         }
 
-        public Team EnterAndCheckTeam(Team[] teams)  // used under option A, when matching teams
+        public string EnterTeam(string teamName)  // used under option A, when matching teams
         {                                                  // allows for user to enter name of team and it checks if it exists and returns a Team
-            Team team = new Team();
             bool goingFlag = true;
-            string teamName = "";
 
             while (goingFlag)
             {
                 goingFlag = false;
-                Console.WriteLine("Please enter the name of a team to be matched, or enter \"QUIT\" twice to go back to the sub-menu");
-                teamName = Console.ReadLine();
-                teamName = teamName.ToUpper();
-
+                
                 if (teamName == "QUIT")
                 {
                     break;
@@ -117,23 +112,43 @@ namespace P_Tracker_3
                     goingFlag = true;
                     Console.WriteLine("Please enter a name less than 25 letters long");
                 }
-                if (teamName == "" || teamName == " ")
-                {
-                    goingFlag = true;
-                    Console.WriteLine("Please enter a team name first, please press enter");
-                    break;
-                }
+                //if (teamName == "" || teamName == " ")
+                //{
+                //    goingFlag = true;
+                //    Console.WriteLine("Please enter a team name first, please press enter");
+                //    break;
+                //}
             }
+            return teamName;
+        }
 
+        public Team CheckTeamsName(Team[] teams, string teamName)
+        {
+            Team team = new Team();
+            //bool[] exists = new bool[teams.Length];
+            //for (int i = 0; i < exists.Length; i++)
+            //{
+            //    exists[i] = false;
+            //}
             for (int i = 0; i < teams.Length; i++)          // check if name exists
             {
                 if (teamName == teams[i].name)
                 {
                     team = teams[i];
+                    //exists[i] = true;
+
+                    //for (int i = 0; i < exists.Length; i++)         // needs more work
+                    //{                             // *********************************************************************
+                    //    if (exists[i] != true && exists[i + 1] != true)  // if there is not one true exists[i]: if they are all false
+                    //    {                      //then do it again, ask for another name which does exist
+
+                    //    }
+                    //}
+
+                    return team;
                 }
             }
             return team;
         }
-
     }
 }

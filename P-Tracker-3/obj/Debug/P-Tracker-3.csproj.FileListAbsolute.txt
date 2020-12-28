@@ -1,0 +1,7 @@
+C:\Users\tigge\source\repos\practice\c#\tournament-Tracker\P-Tracker-3\P-Tracker-3\bin\Debug\P-Tracker-3.exe.config
+C:\Users\tigge\source\repos\practice\c#\tournament-Tracker\P-Tracker-3\P-Tracker-3\bin\Debug\P-Tracker-3.exe
+C:\Users\tigge\source\repos\practice\c#\tournament-Tracker\P-Tracker-3\P-Tracker-3\bin\Debug\P-Tracker-3.pdb
+C:\Users\tigge\source\repos\practice\c#\tournament-Tracker\P-Tracker-3\P-Tracker-3\obj\Debug\P-Tracker-3.csprojAssemblyReference.cache
+C:\Users\tigge\source\repos\practice\c#\tournament-Tracker\P-Tracker-3\P-Tracker-3\obj\Debug\P-Tracker-3.csproj.CoreCompileInputs.cache
+C:\Users\tigge\source\repos\practice\c#\tournament-Tracker\P-Tracker-3\P-Tracker-3\obj\Debug\P-Tracker-3.exe
+C:\Users\tigge\source\repos\practice\c#\tournament-Tracker\P-Tracker-3\P-Tracker-3\obj\Debug\P-Tracker-3.pdb

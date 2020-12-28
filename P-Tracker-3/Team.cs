@@ -40,28 +40,17 @@ namespace P_Tracker_3
             {
                 keepGoing = false;
 
-                Console.WriteLine("enter name or enter \"QUIT\" twice to go back to the sub-menu");
+                Console.WriteLine("enter name");
                 string wordOne = Console.ReadLine();
                 wordOne = wordOne.ToUpper();
 
-                if (wordOne == "QUIT")
-                {
-                    wordOne = "";
-                    break;
-                }
-                
-                if (wordOne == "" || wordOne == " " || wordOne == "  ")
-                {
-                    keepGoing = true;
-                    Console.WriteLine("Please enter a value, or enter \"QUIT\" twice to exit");
-                }
-
-                if (wordOne.Length > 25) // already have this in ErrorChecking.cs
+                if (wordOne.Length > 25)
                 {
                     keepGoing = true;
                     Console.WriteLine("Please limit to under 25 characters");
                 }
                 
+            
                 team.name = wordOne; 
             }
         }
@@ -70,17 +59,16 @@ namespace P_Tracker_3
         {
             Console.WriteLine("score: ");
             string numberScore = Console.ReadLine();
-            numberScore = ErrorChecking.EnsureDigit(numberScore);
+            for (int i = 0; i < numberScore.Length; i++)
+            {
+
+            }
             team.score = Int32.Parse(numberScore);
         }
         
-        public void DisplayName(Team team)
-        {
-            Console.WriteLine(team.name);
-        }
         public void DisplayTeam(Team team)
         {
-            Console.WriteLine($"name: {team.name}");
+            Console.WriteLine(team.name);
             Console.WriteLine($"score: {team.score}");
         }
     }

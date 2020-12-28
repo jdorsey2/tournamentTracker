@@ -70,10 +70,7 @@ namespace P_Tracker_3
         {
             Console.WriteLine("score: ");
             string numberScore = Console.ReadLine();
-            for (int i = 0; i < numberScore.Length; i++)
-            {
-
-            }
+            numberScore = ErrorChecking.EnsureDigit(numberScore);
             team.score = Int32.Parse(numberScore);
         }
         

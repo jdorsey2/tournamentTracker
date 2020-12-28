@@ -125,29 +125,41 @@ namespace P_Tracker_3
         public Team CheckTeamsName(Team[] teams, string teamName)
         {
             Team team = new Team();
-            //bool[] exists = new bool[teams.Length];
-            //for (int i = 0; i < exists.Length; i++)
-            //{
-            //    exists[i] = false;
-            //}
-            for (int i = 0; i < teams.Length; i++)          // check if name exists
+            bool keepGoing = true;
+            bool[] flag = new bool[teams.Length];
+            for (int i = 0; i < flag.Length; i++)
             {
-                if (teamName == teams[i].name)
-                {
-                    team = teams[i];
-                    //exists[i] = true;
-
-                    //for (int i = 0; i < exists.Length; i++)         // needs more work
-                    //{                             // *********************************************************************
-                    //    if (exists[i] != true && exists[i + 1] != true)  // if there is not one true exists[i]: if they are all false
-                    //    {                      //then do it again, ask for another name which does exist
-
-                    //    }
-                    //}
-
-                    return team;
-                }
+                flag[i] = false;
             }
+
+            while (keepGoing == true)
+            {
+                keepGoing = false;
+
+                for (int i = 0; i < teams.Length; i++)          // check if name exists
+                {
+                    if (teamName == teams[i].name)
+                    {
+                        team = teams[i];
+                        flag[i] = true;
+                        Console.WriteLine(flag[i]);
+                    }
+                }
+                for (int i = 0; i < flag.Length; i++)
+                {
+                    if (flag[i] == true)
+                    {
+                        return team;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Enter another name, the one entered did not match any existing team name");
+                        teamName = Console.ReadLine();
+                        keepGoing = true;
+                    }    
+                } 
+            }
+            
             return team;
         }
     }

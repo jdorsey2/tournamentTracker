@@ -22,7 +22,10 @@ using System.Threading.Tasks;
 namespace P_Tracker_3
 {
     class Program
-    {
+    { /// <summary>
+    /// /////////////////////////////////// after tournament round is done need to set the scores to zero
+    /// </summary>
+    /// <param name="args"></param>
         static void Main(string[] args)
         {
             //######### Determines array sizes ###########################################
@@ -86,14 +89,14 @@ namespace P_Tracker_3
 
             // take number of rounds and divide each successive one by 2 to be used a length of winnerSeries array for each tournamemnt
            
-            int newNumberTeams = numberTeams;
-            int[] roundsSizeArray = new int[rounds]; // roundsSizeArray gives us the size of the teams for each round
-            for (int i = 0; i < rounds; i++)    // divides number of teams into two for each round, 
-            {                                    // now i can use roundsSizeArray instead of numberTeams
-                newNumberTeams = newNumberTeams / 2;
-                roundsSizeArray[i] = newNumberTeams;  // figure out how to put numberTeams in array and numberMatches
+            //int newNumberTeams = numberTeams;
+            //int[] roundsSizeArray = new int[rounds]; // roundsSizeArray gives us the size of the teams for each round
+            //for (int i = 0; i < rounds; i++)    // divides number of teams into two for each round, 
+            //{                                    // now i can use roundsSizeArray instead of numberTeams
+            //    newNumberTeams = newNumberTeams / 2;
+            //    roundsSizeArray[i] = newNumberTeams;  // figure out how to put numberTeams in array and numberMatches
                 
-            }
+            //}
              
 
             Team[] teams = new Team[numberTeams];
@@ -102,7 +105,7 @@ namespace P_Tracker_3
             {
                 teams[i] = new Team();
             }
-
+            // *************************************************************************************** change size of array to ...when each round is played size should half
             Play[] playsArray = new Play[numberMatches];    // matches teams into competing teams so their is half as many objects
             Team[] winnerSeries = new Team[numberMatches];
 
@@ -151,26 +154,9 @@ namespace P_Tracker_3
                             }
 
                             // Match Teams in competitions
-                            Team teamOne = new Team();
-                            Team teamTwo = new Team();
-                            Play playRecord = new Play();
-                            string name = "";
-                            for (int i = 0; i < playsArray.Length; i++)         // series of plays or matches stored in playArray
-                            {
-                                Console.WriteLine("please enter team name");
-                                name = Console.ReadLine();
-                                name = name.ToUpper();
-                                name = playRecord.EnterTeam(name);
-                                teamOne = playRecord.CheckTeamsName(teams, name);
-                                Console.WriteLine("Please enter team name");         // from Play.cs
-                                name = Console.ReadLine();
-                                name = name.ToUpper();
-                                name = playRecord.EnterTeam(name);
-                                teamTwo = playRecord.CheckTeamsName(teams, name);
-                                playRecord = playRecord.ConvertTeamsToPlay(teamOne, teamTwo); // from Play.cs
+                            Console.WriteLine($"length: {teams.Length}");
+                            playsArray = Rounds.MatchTeams(teams);
 
-                                playsArray[i] = playRecord;
-                            }
                         }
                         else if (teamsInput == "3") //exit to main menu
                         {
@@ -248,12 +234,21 @@ namespace P_Tracker_3
                         else if (displayInput == "2") // display matched teams
                         {
                             bool ArrayIsNull = false;
-                            for (int i = 0; i < teams.Length; i++)
+              // ***************************************************************************************************
+                            for (int i = 0; i < playsArray.Length; i++) // need to add error checking if teams are null or playsarray are null then don't do the following, otherwise the program crashes if no team names are entered and they are not matched
                             {
-                                if (teams[i].score == 0)        // testing for any scores not entered yet
+                                if (playsArray[i].teamOne.score == 0)        // testing for any scores not entered yet
+                                {
+                                    
+                                    Console.WriteLine("please enter a score or create a team and try again");
+                                    ArrayIsNull = true;
+                                    break;
+                                }
+                                if (playsArray[i].teamTwo.score == 0)
                                 {
                                     Console.WriteLine("please enter a score or create a team and try again");
                                     ArrayIsNull = true;
+                                    break;
                                 }
                             }
 
@@ -288,6 +283,7 @@ namespace P_Tracker_3
                                 Console.WriteLine($"Name: {winnerSeries[i].name}");
                                 Console.WriteLine($"Score: {winnerSeries[i].score}");
                             }
+                            Console.WriteLine($"length: {winnerSeries.Length}");
                         }
                         else if (displayInput == "4") // exit to main menu
                         {
@@ -309,47 +305,24 @@ namespace P_Tracker_3
 
                     if (matchInput == "1")
                     {
-                        // Match Teams in competitions
-                        Team teamOne = new Team();
-                        Team teamTwo = new Team();
-                        Play playRecord = new Play();
-                        //Team[] array = new Team[winnerSeries.Length];
-                        //for (int i = 0; i < array.Length; i++)
-                        //{
-                        //    array[i] = new Team();
-                        //}
-
-                        for (int i = 0; i < winnerSeries.Length; i++)         // series of plays or matches stored in playArray
-                        {
-                            Console.WriteLine("Please enter the name of a team to be matched, or enter \"QUIT\" twice to go back to the sub-menu");
-                            string teamName = Console.ReadLine();
-                            teamName = teamName.ToUpper();
-                            string name = playRecord.EnterTeam(teamName);
-                            teamOne = playRecord.CheckTeamsName(winnerSeries, name);
-                            Console.WriteLine("Please enter a team name to match");
-                            teamName = Console.ReadLine();
-                            teamName = teamName.ToUpper();
-                            name = playRecord.EnterTeam(teamName);
-                            teamTwo = playRecord.CheckTeamsName(winnerSeries, name);
-
-                            playRecord = playRecord.ConvertTeamsToPlay(teamOne, teamTwo); // from Play.cs
-
-                            playsArray[i] = playRecord;
-                        }
+                        playsArray = Rounds.MatchTeams(winnerSeries);
 
                     }if (matchInput == "2")
                     {
                         bool nullFlag = false;
-                        for (int i = 0; i < teams.Length; i++)
+                        for (int i = 0; i < playsArray.Length; i++)
                         {
-                            if (teams[i].name == null)
+                            if (playsArray[i].teamOne.name == null || playsArray[i].teamTwo.name == null)
                             {
                                 nullFlag = true;
                             }
                             else
                             {
-                                Console.Write($"{teams[i].name}: ");
-                                teams[i].EnterScores(teams[i]);                     // from Team.cs
+                                Console.Write($"{playsArray[i].teamOne.name}: ");
+                                teams[i].EnterScores(playsArray[i].teamOne);                     // from Team.cs
+
+                                Console.Write($"{playsArray[i].teamTwo.name}: ");
+                                teams[i].EnterScores(playsArray[i].teamTwo);
                             }
                         }
                     }

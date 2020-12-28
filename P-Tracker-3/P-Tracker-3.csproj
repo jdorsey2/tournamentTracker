@@ -50,6 +50,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Play.cs" />
+    <Compile Include="Rounds.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="Tournament.cs" />
   </ItemGroup>

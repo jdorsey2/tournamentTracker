@@ -33,7 +33,8 @@ namespace P_Tracker_3
             int rounds = 0;
             int numberTeams = 0;
             bool keepGoing = true;
-
+            int originalNumber = 0;
+            int newNumberOfTeams = 0;
             while (keepGoing)       // error checking 
             {
                 keepGoing = false;
@@ -44,6 +45,8 @@ namespace P_Tracker_3
                 
                 if (inputMain == "A")
                 {
+                    //******************************* Calculates number of tournaments ****************************************
+
                     string size = "";
                     Console.WriteLine("Please enter how many teams there are, only enter an even number");
                     size = Console.ReadLine();
@@ -53,13 +56,78 @@ namespace P_Tracker_3
                     numberTeams = Int32.Parse(size);
                     numberTeams = ErrorChecking.EnsureEven(numberTeams);  // from ErrorChecking.cs
 
-                    string round = "";
-                    Console.WriteLine("Please enter how many rounds the tournament will last");
-                    round = Console.ReadLine();
+                    originalNumber = numberTeams;
 
-                    round = ErrorChecking.EnsureDigit(round);
-                    round = ErrorChecking.EnsureLength(round);
-                    rounds = Int32.Parse(round);
+                    int counter = 0;
+                    int numberOneLess = 0;
+                    bool cannotCompete = false;
+                    bool flag = true;
+                    while (flag)
+                    {
+                        numberOneLess = numberTeams - 1;
+
+                        if (numberTeams == 1)
+                        {
+                            cannotCompete = true;       // if there is one team left over because odd number of teams: so cannot compete
+                            break;
+                        }
+
+                        if (numberTeams % 2 == 0)
+                        {
+                            numberTeams = numberTeams / 2;
+                            counter++;
+
+                        }
+                        else if ((numberOneLess) % 2 == 0)
+                        {
+                            numberOneLess = numberOneLess / 2;
+                            counter++;
+                            numberTeams = numberOneLess;
+                        }
+                        else
+                        {
+                            flag = false;
+                        }
+                    }
+                    if (cannotCompete == true)
+                    {
+                        Console.WriteLine($"you entered {originalNumber} teams, in the course of the game play, you will have one team left out,");
+                        Console.WriteLine("one team will have to play an extra time to account for this");
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine($"counter {counter}");
+
+                    int numberPossibleRounds = counter; // decrement after each round of tournaments: have finish display when it reaches 0/1
+
+                    //**************************** Calculate number of teams after each round ***********************************
+
+                    newNumberOfTeams = originalNumber;
+                    int newTeamsLessOne = newNumberOfTeams - 1;
+
+                    if (newNumberOfTeams != 1)
+                    {
+                        if (newNumberOfTeams % 2 == 0)
+                        {
+                            newNumberOfTeams = newNumberOfTeams / 2;
+                        }
+                        if (newTeamsLessOne % 2 == 0)
+                        {
+                            newNumberOfTeams = (newTeamsLessOne / 2) + 1;
+                        }
+                    }else
+                    {
+                        Console.WriteLine("Please enter a value greater than one");
+                    }
+
+
+
+
+
+
+
+
+
+
 
                 }
                 else if (inputMain == "B")
@@ -99,15 +167,15 @@ namespace P_Tracker_3
             //}
              
 
-            Team[] teams = new Team[numberTeams];
+            Team[] teams = new Team[originalNumber];
 
             for (int i = 0; i < teams.Length; i++)
             {
                 teams[i] = new Team();
             }
             // *************************************************************************************** change size of array to ...when each round is played size should half
-            Play[] playsArray = new Play[numberMatches];    // matches teams into competing teams so their is half as many objects
-            Team[] winnerSeries = new Team[numberMatches];
+            Play[] playsArray = new Play[newNumberOfTeams];    // matches teams into competing teams so their is half as many objects
+            Team[] winnerSeries = new Team[newNumberOfTeams];
 
             for (int i = 0; i < playsArray.Length; i++)   //playArray is a collection of Play(s) which is a collection of Team(s)
             {

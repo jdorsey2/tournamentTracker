@@ -4,37 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace P_Tracker_3
+namespace Tracker
 {
     class ErrorChecking
     {
-        public static string EnsureDigit()
-        {
-            bool keepGoing = true;
-            string input = "";
-
-            while (keepGoing)
-            {
-                keepGoing = false;
-                bool isDigit = true;
-                input = Console.ReadLine();
-
-                foreach (char letter in input)
-                {
-                    if (char.IsPunctuation(letter) || char.IsLetter(letter))
-                    {
-                        isDigit = false;
-                        keepGoing = true;
-                    }
-                } 
-                if (isDigit == false)
-                {
-                    Console.WriteLine("Please try again, enter only digits");
-                }
-            }
-            return input;
-        }
-
         public static string EnsureDigit(string input)
         {
             bool keepGoing = true;
@@ -43,19 +16,23 @@ namespace P_Tracker_3
             {
                 keepGoing = false;
 
-                foreach (char letter in input)
+                foreach (char letter in input) 
                 {
                     if (char.IsPunctuation(letter) || char.IsLetter(letter))
                     {
                         keepGoing = true;
-                        Console.WriteLine("Please enter a digit only");
-                        input = Console.ReadLine();
                     }
+                }
+                if (keepGoing == true)
+                {
+                    Console.WriteLine("Please enter a digit only");
+                    input = Console.ReadLine();
                 }
             }
             return input;
         }
 
+        
         public static string EnsureLength(string input)
         {
             bool keepGoing = true;
@@ -66,12 +43,32 @@ namespace P_Tracker_3
                 if (input.Length > 25)
                 {
                     keepGoing = true;
-                    Console.WriteLine("Please limit the length to under 25");
+                    Console.WriteLine("Please limit the length to under 25, please try again");
+                    input = Console.ReadLine();
+                    input = input.ToUpper();
                 }
             }
             return input;
         }
+        public static string EnsureEmptyLines(string input)
+        {
+            bool keepGoing = true;
 
+            while (keepGoing)
+            {
+                keepGoing = false;
+
+                if (input == "" || input == " " || input == "  ")
+                {
+                    keepGoing = true;
+                    Console.WriteLine("Please enter a value, or enter \"QUIT\" twice to exit");
+                    input = Console.ReadLine();
+                    input = input.ToUpper();
+                }
+            }
+            return input;
+        }
+      
         public static int EnsureEven(int input)
         {
             bool keepGoing = true;

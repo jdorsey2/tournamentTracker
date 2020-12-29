@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace P_Tracker_3
+namespace Tracker
 {
     class Rounds
     {
@@ -39,17 +39,54 @@ namespace P_Tracker_3
 
             for (int i = 0; i < playArray.Length; i++)
             {
-                Console.WriteLine("please enter team name to match or enter \"QUIT\" to exit");
-                name = Console.ReadLine();
-                name = name.ToUpper();
-                name = playRecord.EnterTeam(name);
-                teamOne = playRecord.CheckTeamsName(teams, name);
+                bool keepGoingFlag = true;
+                while (keepGoingFlag)
+                {
+                    keepGoingFlag = false;
 
-                Console.WriteLine("Please enter team name to match or enter \"QUIT\" to exit");         // from Play.cs
-                name = Console.ReadLine();
-                name = name.ToUpper();
-                name = playRecord.EnterTeam(name);
-                teamTwo = playRecord.CheckTeamsName(teams, name);
+                    Console.WriteLine("please enter team name to match or enter \"QUIT\" to exit");
+                    name = Console.ReadLine();
+                    name = name.ToUpper();
+                    if (name == "QUIT")
+                    {
+                        break;
+                    }
+
+                    name = ErrorChecking.EnsureLength(name);
+                    name = ErrorChecking.EnsureEmptyLines(name);
+                    teamOne = playRecord.CheckTeamsName(teams, name);
+
+                    if (teamOne.name == null)
+                    {
+                        Console.WriteLine("This name does not exist in the program, please try again");
+                        keepGoingFlag = true;
+                    } 
+                }
+
+                keepGoingFlag = true;
+
+                while (keepGoingFlag)
+                {
+                    keepGoingFlag = false;
+                    Console.WriteLine("Please enter team name to match or enter \"QUIT\" to exit");
+                    name = Console.ReadLine();
+                    name = name.ToUpper();
+
+                    if (name == "QUIT")
+                    {
+                        break;
+                    }
+
+                    name = ErrorChecking.EnsureLength(name);
+                    name = ErrorChecking.EnsureEmptyLines(name);
+                    teamTwo = playRecord.CheckTeamsName(teams, name);
+
+                    if (teamTwo.name == null)
+                    {
+                        Console.WriteLine("This name does not exist in the program, please try again");
+                        keepGoingFlag = true;
+                    } 
+                }
 
                 playRecord = playRecord.ConvertTeamsToPlay(teamOne, teamTwo); // from Play.cs
 

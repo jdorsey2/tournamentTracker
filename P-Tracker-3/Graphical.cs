@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace P_Tracker_3
+namespace Tracker
 {
     class Graphical
     {

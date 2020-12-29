@@ -52,7 +52,6 @@
     <Compile Include="Play.cs" />
     <Compile Include="Rounds.cs" />
     <Compile Include="Team.cs" />
-    <Compile Include="Tournament.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

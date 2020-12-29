@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace P_Tracker_3
+namespace Tracker
 {
     class Menu
     {
@@ -28,18 +28,16 @@ namespace P_Tracker_3
             Console.WriteLine("##### Main Menu: ####");
             Console.WriteLine("#####################");
             Console.WriteLine();
-            Console.WriteLine("Please Select an option: To start select A first to set up teams, then select B to enter scores");
+            Console.WriteLine("Please Select an option:");
             Console.WriteLine("*************************************************************************************************");
-            Console.WriteLine("A. Setup a tournament");
-            Console.WriteLine("B. Enter scores");
-            Console.WriteLine("C. Calculate winner");
-            Console.WriteLine("D. Display");
-            Console.WriteLine("E. To set up another round of tournaments");
-            Console.WriteLine("F. Find Name/Team");
-            Console.WriteLine("G. Graphical Display");
-            Console.WriteLine("U. Update/Delete teams");
-            Console.WriteLine("S. To Save");
-            Console.WriteLine("Q. To Exit this Program");
+            Console.WriteLine("A. Set Up Tips and Help");
+            Console.WriteLine("B. Playing the First Round");
+            Console.WriteLine("C. Managing successive rounds");
+            Console.WriteLine("D. Find Name/Team");
+            Console.WriteLine("E. Graphical Display");
+            Console.WriteLine("F. Update/Delete teams");
+            Console.WriteLine("G. To Save");
+            Console.WriteLine("H. To Exit this Program");
             Console.WriteLine("**************************************************************************************************");
             Console.WriteLine();
         }
@@ -59,35 +57,39 @@ namespace P_Tracker_3
             Console.WriteLine();
         }
 
-        public static void DisplaySubMenu()
+        
+        public static void PlayingFirstRoundSubMenu()
         {
             Console.WriteLine();
-            Console.WriteLine("####################################");
-            Console.WriteLine("##### Sub-Menu: Display Options ####");
-            Console.WriteLine("####################################");
-            Console.WriteLine();
-            Console.WriteLine("Please Select an option");
-            Console.WriteLine("*************************************");
-            Console.WriteLine("1. Display All Teams");
-            Console.WriteLine("2. Display Matched Teams");
-            Console.WriteLine("3. Display Winners");
-            Console.WriteLine("4. Exit to Main Menu");
-            Console.WriteLine("**************************************");
-            Console.WriteLine();
-        }
-
-        public static void EnterTeamsSubMenu()
-        {
-            Console.WriteLine();
-            Console.WriteLine("########################################");
-            Console.WriteLine("##### Sub-Menu: Enter Teams Options ####");
-            Console.WriteLine("########################################");
+            Console.WriteLine("####################################################");
+            Console.WriteLine("##### Sub-Menu: Playing the First Round Options ####");
+            Console.WriteLine("####################################################");
             Console.WriteLine();
             Console.WriteLine("Please Select an option");
             Console.WriteLine("***************************************");
-            Console.WriteLine("1. Enter All Teams");
+            Console.WriteLine("1. Enter Team names");
             Console.WriteLine("2. Match Teams Together");
-            Console.WriteLine("3. Exit to Main Menu");
+            Console.WriteLine("3. Enter Scores");
+            Console.WriteLine("4. Calculate Winner");
+            Console.WriteLine("5. Display, teams, matches and winner");
+            Console.WriteLine("6. Exit to Main Menu");
+            Console.WriteLine("***************************************");
+        }
+
+        public static void successiveRoundsSubMenu()
+        {
+            Console.WriteLine();
+            Console.WriteLine("##############################################");
+            Console.WriteLine("##### Sub-Menu: Successive Rounds Options ####");
+            Console.WriteLine("##############################################");
+            Console.WriteLine();
+            Console.WriteLine("Please Select an option");
+            Console.WriteLine("***************************************");
+            Console.WriteLine("1. Match the Winners together for a new round");
+            Console.WriteLine("2. Enter Scores");
+            Console.WriteLine("3. Calculate Winner");
+            Console.WriteLine("4. Display, teams, matches and winners");
+            Console.WriteLine("5. Exit to Main Menu");
             Console.WriteLine("***************************************");
         }
     }

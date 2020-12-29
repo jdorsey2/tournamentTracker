@@ -22,20 +22,40 @@ using System.Threading.Tasks;
 namespace Tracker
 {
     class Program
-    { /// <summary>
-    /// /////////////////////////////////// after tournament round is done need to set the scores to zero
-    /// </summary>
-    /// <param name="args"></param>
+    {
+        public static int DetermineSize(int varSize)
+        {
+            int varAmount = varSize;
+            int sizeLessOne = varAmount - 1;
+
+            if (varAmount != 1)
+            {
+                if (varAmount % 2 == 0)
+                {
+                    varAmount = varAmount / 2;
+                }
+                if (sizeLessOne % 2 == 0)
+                {
+                    varAmount = (sizeLessOne / 2) + 1;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please enter a value greater than one");
+            }
+            return varAmount;
+        }
         static void Main(string[] args)
         {
             //######### Determines array sizes ###########################################
 
-            int numberTeams = 0;
+            int numberTeams = 0; // input for number of teams
+            int varSize = 0;   // index for teams array
+            int varAmount = 0; // index for play array
             bool keepGoing = true;
-            int originalNumber = 0;
-            int newNumberOfTeams = 0;
-            int sizeFirstArray = 0;
-            while (keepGoing)       // error checking 
+            int originalNumber = 0; // keeps track of original team size entered by user at start
+
+            while (keepGoing)       // tournament tracker welcome page
             {
                 keepGoing = false;
 
@@ -44,7 +64,7 @@ namespace Tracker
                 inputMain = inputMain.ToUpper();
                 inputMain = ErrorChecking.EnsureLength(inputMain);
                 inputMain = ErrorChecking.EnsureEmptyLines(inputMain);
-                
+
                 if (inputMain == "A")
                 {
                     string size = "";
@@ -56,15 +76,17 @@ namespace Tracker
                     numberTeams = Int32.Parse(size);
                     numberTeams = ErrorChecking.EnsureEven(numberTeams);  // from ErrorChecking.cs
 
+                    varSize = numberTeams;
                     originalNumber = numberTeams;
-                    sizeFirstArray = numberTeams;
 
-              //******************************* Calculates number of tournaments ****************************************
+
+
+                    //******************************* Calculates number of tournaments ****************************************
                     int counter = 0;
                     int numberOneLess = 0;
                     int leftOutAmount = 0;
                     bool cannotCompete = false;
-                    
+
                     bool flag = true;
                     while (flag)
                     {
@@ -100,7 +122,8 @@ namespace Tracker
                         leftOutAmount = 0;
                         cannotCompete = false;
 
-                    }else if (leftOutAmount > 2) // set odd number 3 or greater to add matching teams to counter with one being left over
+                    }
+                    else if (leftOutAmount > 2) // set odd number 3 or greater to add matching teams to counter with one being left over
                     {
                         leftOutAmount = leftOutAmount - 1;
                     }
@@ -114,38 +137,6 @@ namespace Tracker
 
                     int numberPossibleRounds = counter; // decrement after each round of tournaments: have finish display when it reaches 0/1
 
-                    //**************************** Calculate number of teams for next round ***********************************
-                    // needs to be moved to a different menu, it is out of its proper scope
-
-                    //newNumberOfTeams = originalNumber;
-                    //int newTeamsLessOne = newNumberOfTeams - 1;
-
-                    //if (newNumberOfTeams != 1)
-                    //{
-                    //    if (newNumberOfTeams % 2 == 0)
-                    //    {
-                    //        newNumberOfTeams = newNumberOfTeams / 2;
-                    //        originalNumber = newNumberOfTeams;
-                    //    }
-                    //    if (newTeamsLessOne % 2 == 0)
-                    //    {
-                    //        newNumberOfTeams = (newTeamsLessOne / 2) + 1;
-                    //        originalNumber = newNumberOfTeams;
-                    //    }
-                    //}else
-                    //{
-                    //    Console.WriteLine("Please enter a value greater than one");
-                    //}
-
-
-
-
-
-
-
-
-
-
 
                 }
                 else if (inputMain == "B")
@@ -155,14 +146,17 @@ namespace Tracker
                     Console.WriteLine("This option is currently not available, please create a new tournament");
                     Console.WriteLine();
                     //load program
-                }else if (inputMain == "C")
+                }
+                else if (inputMain == "C")
                 {
                     Environment.Exit(0);
-                }else if (inputMain == "D")
+                }
+                else if (inputMain == "D")
                 {
                     keepGoing = true;
                     //Help.Pages();
-                }else
+                }
+                else
                 {
                     Console.WriteLine("Please select either A, B, C, or D");
                     keepGoing = true;
@@ -170,25 +164,26 @@ namespace Tracker
             }
 
             //######### Global Variables ################################################
-            
-            
-            Team[] teams = new Team[sizeFirstArray]; // change the variable that sizes these arrays
+
+            Team[] teams = new Team[varSize]; // change the variable that sizes these arrays
 
             for (int i = 0; i < teams.Length; i++)
             {
                 teams[i] = new Team();
             }
             // *************************************************************************************** change size of array to ...when each round is played size should half
-            newNumberOfTeams = sizeFirstArray / 2;
-            Play[] playsArray = new Play[newNumberOfTeams];    // matches teams into competing teams so their is half as many objects
-            Team[] winnerSeries = new Team[newNumberOfTeams];
+
+            varAmount = DetermineSize(varSize);
+            
+            Play[] playsArray = new Play[varAmount];    // matches teams into competing teams so their is half as many objects
+            Team[] winnerSeries = new Team[varAmount];
 
             for (int i = 0; i < playsArray.Length; i++)   //playArray is a collection of Play(s) which is a collection of Team(s)
             {
                 playsArray[i] = new Play();
                 winnerSeries[i] = new Team();
             }
-            
+
 
             // ########## Main Menu with implementation ##################################
 
@@ -203,7 +198,8 @@ namespace Tracker
                 if (input == "A") // help topics
                 {
 
-                }else if (input == "B")   // managing first round
+                }
+                else if (input == "B")   // managing first round
                 {
                     while (true)
                     {
@@ -212,6 +208,7 @@ namespace Tracker
                         Menu.PlayingFirstRoundSubMenu();
                         teamsInput = Console.ReadLine();
                         teamsInput = ErrorChecking.EnsureDigit(teamsInput);
+                        teamsInput = ErrorChecking.EnsureEmptyLines(teamsInput);
                         teamsInput = ErrorChecking.EnsureLength(teamsInput);
                         if (teamsInput == "1")                                  // enter team names
                         {
@@ -273,9 +270,17 @@ namespace Tracker
                             for (int i = 0; i < playsArray.Length; i++)
                             {
                                 winnerSeries[i] = playsArray[i].CompareScores(playsArray[i].teamOne, playsArray[i].teamTwo); // from Play.cs
+                                Console.WriteLine($"winnerSeries: {winnerSeries.Length}, playsArray {playsArray.Length}");
                             }
+                            
+                            //for (int i = 0; i < winnerSeries.Length; i++)
+                            //{
+                            //    winnerSeries = playsArray[i].ConvertFromPlayToTeamArray(playsArray[i]);
+                            //}
                             Console.WriteLine("scores are now calculated"); // include conditional statements so it doesn't always display
-
+                            Console.WriteLine();
+                            
+                            
                         }
                         else if (teamsInput == "5") // display menu
                         {
@@ -294,12 +299,12 @@ namespace Tracker
                                 if (displayInput == "A") // display teams
                                 {
                                     Console.WriteLine("Here is a list of all teams: ");
-                                                             for (int i = 0; i<teams.Length; i++)
-                                                                {
-                                                                    teams[i].DisplayTeam(teams[i]);                                 // from Team.cs
-                                            Console.WriteLine("-------------------------------");
-                                                                }
-                                        Console.WriteLine("################################################################");
+                                    for (int i = 0; i < teams.Length; i++)
+                                    {
+                                        teams[i].DisplayTeam(teams[i]);                                 // from Team.cs
+                                        Console.WriteLine("-------------------------------");
+                                    }
+                                    Console.WriteLine("################################################################");
                                 }
                                 else if (displayInput == "B") // display matches
                                 {
@@ -362,19 +367,41 @@ namespace Tracker
                                 else
                                 {
                                     Console.WriteLine("Please enter one of the options provided");
-                                } 
+                                }
                             }
 
-                        }else if (teamsInput == "6") // exit to main menu
+                        }else if (teamsInput == "7") // continue to next round, 
+                        {       
+        //****************************** How to make playsArray and winnerSeries equal each other after first round**************************************
+                            // they are different sizes, but they should be the same
+                            varSize = winnerSeries.Length; 
+                            teams = winnerSeries;
+
+                            varSize = DetermineSize(varSize);
+                            
+                            //varAmount = DetermineSize(varAmount = DetermineSize(varSize));
+                            
+                            // need to cut down size of winnerSeries array
+                            
+                            const int RESETSCORE = 0;
+                            for (int x = 0; x < teams.Length; x++)
+                            {
+                                teams[x].score = RESETSCORE;
+                            }
+                            Console.WriteLine($"size of winnerSeries: {winnerSeries.Length}");
+                            Console.WriteLine($"size of teams: {teams.Length}");
+                        }
+                        else if (teamsInput == "6") // exit to main menu
                         {
                             break;
-                        }else
+                        }
+                        else
                         {
                             Console.WriteLine("Please select one of the sub-menu options");
                         }
                     }
 
-                }   
+                }
                 else if (input == "C")  //  Managing successive rounds
                 {
                     string matchInput = "";
@@ -423,13 +450,13 @@ namespace Tracker
                         else
                         {
                             Console.WriteLine("Please enter one of the options displayed");
-                        } 
+                        }
                     }
 
-                } 
+                }
                 else if (input == "D") //Find name/team
                 {
-                    
+
                 }
                 else if (input == "E") // graphical display
                 {

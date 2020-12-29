@@ -72,6 +72,7 @@ namespace Tracker
             Console.WriteLine("3. Enter Scores");
             Console.WriteLine("4. Calculate Winner");
             Console.WriteLine("5. Display, teams, matches and winner");
+            Console.WriteLine("7. continue to next round");
             Console.WriteLine("6. Exit to Main Menu");
             Console.WriteLine("***************************************");
         }

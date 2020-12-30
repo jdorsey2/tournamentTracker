@@ -19,14 +19,14 @@ namespace TournamentTracker.Classes
             round.matchTwo = two;
             return round;
         }
-        public Round EnterRound(Matches one, Matches two)
+        public Round EnterRound()
         {
             Round round = new Round();
-            //Matches matchOne = new Matches();
-            //Matches matchTwo = new Matches();
+            Matches matchOne = new Matches();
+            Matches matchTwo = new Matches();
 
-           // one = matchOne.EnterMatch();
-            //matchTwo = matchTwo.EnterMatch();
+            matchOne = matchOne.EnterMatch();
+            matchTwo = matchTwo.EnterMatch();
             round = MatchToRound(matchOne, matchTwo);
             return round;
             

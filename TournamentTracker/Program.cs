@@ -10,12 +10,42 @@ namespace TournamentTracker
     {
         static void Main(string[] args)
         {
-            Classes.Round round = new Classes.Round();
-            Classes.Matches match = new Classes.Matches();
-            Classes.Team team = new Classes.Team();
-            //round = round.EnterRound();
-            round.DisplayRound(round);
 
+
+
+
+
+
+
+
+
+
+
+
+            // **** Displays one round**************************************************
+                // start
+            //Classes.Round round = new Classes.Round();
+            //Classes.Matches match = new Classes.Matches();
+            //Classes.Matches matchTwo = new Classes.Matches();
+            //Classes.Team team = new Classes.Team();
+            //Classes.Team teamTwo = new Classes.Team();
+            //Classes.Team teamThree = new Classes.Team();
+            //Classes.Team teamFour = new Classes.Team();
+
+
+            //team = team.CreateWriteToTeam();
+            //teamTwo = teamTwo.CreateWriteToTeam();
+            //teamThree = teamThree.CreateWriteToTeam();
+            //teamFour = teamFour.CreateWriteToTeam();
+            //match = match.TeamToMatch(team, teamTwo);
+            ////match = match.EnterMatch();
+            //matchTwo = match.TeamToMatch(teamThree, teamFour);
+            //round = round.MatchToRound(match, matchTwo);
+
+                // end
+            // ************Displays one round ********************************************
+            
+            
             Console.ReadLine();
 
         }

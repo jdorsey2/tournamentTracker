@@ -19,11 +19,11 @@ namespace TournamentTracker.Classes
             match.teamTwo = two;
             return match;
         }
-        public Matches EnterMatch(Team one, Team two)
+        public Matches EnterMatch()
         {
             Matches match = new Matches();
-            //Team one = new Team();
-            //Team two = new Team();
+            Team one = new Team();
+            Team two = new Team();
 
             one = teamOne.CreateWriteToTeam();
             two = teamTwo.CreateWriteToTeam();

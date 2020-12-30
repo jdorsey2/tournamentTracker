@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace P_Tracker_3
+namespace Tracker
 {
     class Play
     {
@@ -54,7 +54,7 @@ namespace P_Tracker_3
 
             return newTeam;
         }
-        
+
         void DeleteTeam(Team team)
         {
             team.score = -1;
@@ -82,18 +82,36 @@ namespace P_Tracker_3
                     {
                         Console.WriteLine("tie"); // have a tie, need additional functionality (elimination round) to deal with it
                         return one; // fix later when tie functionality is updated
-                    }  
-                }else
+                    }
+                }
+                else
                 {
                     Console.WriteLine("Please enter a score");
                     return new Team();
                 }
-            }else
+            }
+            else
             {
                 Console.WriteLine("Please enter a team name first");
                 return new Team();
             }
+        }
+
+
+
+        public Team CheckTeamsName(Team[] teams, string teamName)
+        {
+            Team team = new Team();
             
+            for (int i = 0; i < teams.Length; i++)          // check if name exists
+            {
+                if (teamName == teams[i].name)
+                {
+                    team = teams[i];
+                }
+            }
+
+            return team;
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace P_Tracker_3
+namespace Tracker
 {
     class Team
     {
@@ -46,22 +46,12 @@ namespace P_Tracker_3
 
                 if (wordOne == "QUIT")
                 {
-                    wordOne = "";
                     break;
                 }
-                
-                if (wordOne == "" || wordOne == " " || wordOne == "  ")
-                {
-                    keepGoing = true;
-                    Console.WriteLine("Please enter a value, or enter \"QUIT\" twice to exit");
-                }
 
-                if (wordOne.Length > 25)
-                {
-                    keepGoing = true;
-                    Console.WriteLine("Please limit to under 25 characters");
-                }
-                
+                wordOne = ErrorChecking.EnsureLength(wordOne);
+                wordOne = ErrorChecking.EnsureEmptyLines(wordOne);
+
                 team.name = wordOne; 
             }
         }
@@ -70,10 +60,9 @@ namespace P_Tracker_3
         {
             Console.WriteLine("score: ");
             string numberScore = Console.ReadLine();
-            for (int i = 0; i < numberScore.Length; i++)
-            {
-
-            }
+            numberScore = ErrorChecking.EnsureEmptyLines(numberScore);
+            numberScore = ErrorChecking.EnsureLength(numberScore);
+            numberScore = ErrorChecking.EnsureDigit(numberScore);
             team.score = Int32.Parse(numberScore);
         }
         

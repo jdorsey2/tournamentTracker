@@ -55,7 +55,7 @@ namespace TournamentTracker.Classes
             return team;
         }
 
-        public string EnterName()
+        public string EnterName()     // return a string
         {
             string Name = "";
 
@@ -68,7 +68,7 @@ namespace TournamentTracker.Classes
             return name;
         }
 
-        public int EnterScore()
+        public int EnterScore()   // return an int
         {
             string ScoreInt = "";
 
@@ -80,6 +80,33 @@ namespace TournamentTracker.Classes
             score = Int32.Parse(ScoreInt);
             return score;
         }
+// ********************** Takes information in and returns information *************************
+    // start
+        public Team EnterTeamName(Team team)    // passes a Team and returns a team
+        {
+            Console.WriteLine("Please enter a name");
+            string teamName = Console.ReadLine();
+            teamName = teamName.ToUpper();
+            teamName = ErrorChecking.EnsureEmptyLines(teamName);
+            teamName = ErrorChecking.EnsureLength(teamName);
+            team.name = teamName; 
+            return team;
+        }
+
+        public Team EnterTeamScore(Team team)   // passes a team and returns a team
+        {
+            Console.WriteLine("Please enter a score");
+          
+            string ScoreInt = Console.ReadLine();
+            ScoreInt = ErrorChecking.EnsureEmptyLines(ScoreInt);
+            ScoreInt = ErrorChecking.EnsureLength(ScoreInt);
+            ScoreInt = ErrorChecking.EnsureDigit(ScoreInt);
+            team.score = Int32.Parse(ScoreInt);
+            return team;
+        }
+            // end
+        // ********************** Takes information in and returns information *************************
+            
         public void DisplayTeam(Team team)
         {
             Console.WriteLine();

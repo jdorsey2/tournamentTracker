@@ -8,6 +8,8 @@ namespace TournamentTracker.Classes
 {
     class Round
     {
+        //  need an array of Round to describe one round where there are more than two matches
+        // for multiple rounds greater than two matches you will need multiple arrays of Round
         public string name { get; set; }
         public Matches matchOne { get; set; }
         public Matches matchTwo { get; set; }

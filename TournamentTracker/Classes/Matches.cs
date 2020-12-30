@@ -12,11 +12,32 @@ namespace TournamentTracker.Classes
         public Team teamOne { get; set; }
         public Team teamTwo { get; set; }
 
+        public Matches ConvertTeamToMatch(Matches match, Team one, Team two)
+        {                                                             // enter two teams given a match
+            match.teamOne = one;                              // can name the match seperately
+            match.teamTwo = two;
+
+            return match;
+        }
         public Matches TeamToMatch(Team one, Team two)
         {
             Matches match = new Matches();
             match.teamOne = one;
             match.teamTwo = two;
+            return match;
+        }
+
+        public Matches SearchForMatch(string name, Matches[] matches)
+        {
+            Matches match = new Matches();
+
+            for (int i = 0; i < matches.Length; i++)
+            {
+                if (name == matches[i].name)
+                {
+                    match = matches[i];
+                }
+            }
             return match;
         }
         public Matches EnterMatch()
@@ -33,7 +54,7 @@ namespace TournamentTracker.Classes
         }
 //********************** Takes information in and returns information*************************
         // start
-        public Matches NameMatch(Matches match)  // name a specific match between two teams
+        public Matches EnterNameMatch(Matches match)  // name a specific match between two teams
         {
             Console.WriteLine("Please enter a name for the match");
             string matchName = Console.ReadLine();

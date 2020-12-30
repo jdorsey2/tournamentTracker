@@ -30,6 +30,19 @@ namespace TournamentTracker.Classes
             score = team.score;
         }
 
+        public Team SearchForTeam(string name, Team[] teams)
+        {
+            Team team = new Team();
+            for (int i = 0; i < teams.Length; i++)
+            {
+                if (name == teams[i].name)
+                {
+                    team = teams[i];
+                }
+            }
+            return team;
+        }
+
         public Team CreateWriteToTeam() // write to team from user defined input
         {
             Team team = new Team();

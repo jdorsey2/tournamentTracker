@@ -24,9 +24,8 @@ namespace TournamentTracker.Classes
             this.score = Score;
         }
 
-        public void CopyToTeam(Team team) // write to team object without user input here
+        public void CopyToTeamScore(Team team) // write to team object without user input here
         {
-            name = team.name;
             score = team.score;
         }
 
@@ -109,7 +108,7 @@ namespace TournamentTracker.Classes
         public Team EnterTeamScore(Team team)   // passes a team and returns a team
         {
             Console.WriteLine("Please enter a score");
-          
+            Console.WriteLine($"Name: {team.name}");
             string ScoreInt = Console.ReadLine();
             ScoreInt = ErrorChecking.EnsureEmptyLines(ScoreInt);
             ScoreInt = ErrorChecking.EnsureLength(ScoreInt);

@@ -34,7 +34,7 @@ namespace TournamentTracker.Classes
             Console.WriteLine("C. enter team matches");
             Console.WriteLine("D. enter scores");
             Console.WriteLine("E. calculate winner");
-            Console.WriteLine("F. name team matches");
+            Console.WriteLine("F. display");
             Console.WriteLine("G. enter team matches");
             Console.WriteLine("H. enter scores");
             Console.WriteLine("I. calculate winner");

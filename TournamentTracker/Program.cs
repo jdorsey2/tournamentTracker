@@ -95,7 +95,13 @@ namespace TournamentTracker
             {
                 originalMatches[i] = new Classes.Matches();
             }
-               
+
+            int numberOfWinners = numberOfMatches;
+            Classes.Team[] originalWinners = new Classes.Team[numberOfWinners];
+            for (int i = 0; i < originalWinners.Length; i++)
+            {
+                originalWinners[i] = new Classes.Team();
+            }
             
             while (true)
             {
@@ -121,9 +127,16 @@ namespace TournamentTracker
                 {
                     for (int i = 0; i < originalMatches.Length; i++)
                     {
+               
                         Classes.Matches inputMatch = new Classes.Matches();
 
                         Console.WriteLine("Please enter name of match you want to put teams into");
+                        Console.WriteLine("Select from the following:");
+                        for (int x = 0; x < originalMatches.Length; x++)
+                        {
+                            Console.WriteLine(originalMatches[x].name);
+                        }
+                        Console.WriteLine();
                         string matchInput = Console.ReadLine();
                         matchInput = matchInput.ToUpper();
                         matchInput = Classes.ErrorChecking.EnsureEmptyLines(matchInput);
@@ -133,6 +146,12 @@ namespace TournamentTracker
 
                         Classes.Team inputOneTeam = new Classes.Team();
                         Console.WriteLine("Enter two teams you want to match");
+                        Console.WriteLine("Please select from the following");
+                        for (int x = 0; x < originalTeams.Length; x++)
+                        {
+                            Console.WriteLine(originalTeams[x].name);
+                        }
+                        Console.WriteLine();
                         string teamOneInput = Console.ReadLine();
                         teamOneInput = teamOneInput.ToUpper();
                         teamOneInput = Classes.ErrorChecking.EnsureEmptyLines(teamOneInput);
@@ -155,6 +174,64 @@ namespace TournamentTracker
                     }
 
                     
+                }else if (input == "D") // enter scores
+                {
+                    Console.WriteLine("Please enter scores by match");
+                    for (int i = 0; i < originalMatches.Length; i++)
+                    {
+                        originalMatches[i] = originalMatches[i].EnterScoreOfTeamsbyMatch(originalMatches[i]);
+                    }
+                    Console.WriteLine("Please enter scores by team");
+                    for (int i = 0; i < originalTeams.Length; i++)
+                    {
+                       
+                        originalTeams[i] = originalTeams[i].EnterTeamScore(originalTeams[i]);
+                    }    
+                }else if (input == "E") // calculate winner
+                {
+                    for (int i = 0; i < originalMatches.Length; i++)
+                    {
+                        originalWinners[i] = originalMatches[i].CompareScores(originalMatches[i].teamOne, originalMatches[i].teamTwo);
+                    }
+                }else if (input =="F") // display
+                {
+                    while (true)
+                    {
+                        Console.WriteLine("1. Display Teams. 2. Display Matches. 3. Display Winners. 4. Exit");
+                        string displayInput = Console.ReadLine();
+                        displayInput = Classes.ErrorChecking.EnsureEmptyLines(displayInput);
+                        displayInput = Classes.ErrorChecking.EnsureLength(displayInput);
+                        displayInput = Classes.ErrorChecking.EnsureDigit(displayInput);
+
+                        if (displayInput == "1")
+                        {
+                            for (int i = 0; i < originalTeams.Length; i++)
+                            {
+                                originalTeams[i].DisplayTeam(originalTeams[i]);
+                            }
+                        }
+                        else if (displayInput == "2")
+                        {
+                            for (int i = 0; i < originalMatches.Length; i++)
+                            {
+                                originalMatches[i].DisplayMatch(originalMatches[i]);
+                            }
+                        }
+                        else if (displayInput == "3")
+                        {
+                            for (int i = 0; i < originalWinners.Length; i++)
+                            {
+                                originalWinners[i].DisplayTeam(originalWinners[i]);
+                            }
+
+                        }else if (displayInput == "4")
+                        {
+                            break;
+                        }else
+                        {
+                            Console.WriteLine("Please enter one of the options");
+                        }
+                    }
                 }
             }
             

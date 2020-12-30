@@ -61,7 +61,7 @@ namespace TournamentTracker.Classes
             {
                 keepGoing = false;
 
-                if (input == null || input == " " || input == "  ")
+                if (input == "" || input == " " || input == "  ")
                 {
                     keepGoing = true;
                     Console.WriteLine("Please enter a value, try again");

@@ -4,43 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace TournamentTracker
 {
     class Program
     {
         static void Main(string[] args)
         {
-
             Console.WriteLine("Please enter how many teams there are, only enter an even number");
 
             string sizeTeams = Console.ReadLine();
-            sizeTeams = Classes.ErrorChecking.EnsureDigit(sizeTeams);         // from ErrorChecking.cs
-            sizeTeams = Classes.ErrorChecking.EnsureLength(sizeTeams);    // from ErrorChecking.cs
+            sizeTeams = Classes.ErrorChecking.EnsureDigit(sizeTeams);   // class ErrorChecking is from ErrorChecking.cs
+            sizeTeams = Classes.ErrorChecking.EnsureLength(sizeTeams);   
             int numberTeams = Int32.Parse(sizeTeams);
-            numberTeams = Classes.ErrorChecking.EnsureEven(numberTeams);  // from ErrorChecking.cs
+            numberTeams = Classes.ErrorChecking.EnsureEven(numberTeams);  
           
             int originalNumber = numberTeams;
-
-            int counter = 0;
-            int numberOneLess = 0;
             int leftOutAmount = 0;
+            int counter = 0;           
             bool cannotCompete = false;
 
-            bool flag = true;
-            while (flag)
+            // ************ Calculates number of tournament rounds based on how many teams is entered
+            // start
+            while (numberTeams > 1)
             {
-                numberOneLess = numberTeams - 1;
-
-                if (numberTeams == 1)
-                {
-                    break;
-                }
+                int numberOneLess = numberTeams - 1;
 
                 if (numberTeams % 2 == 0)
                 {
                     numberTeams = numberTeams / 2;
                     counter++;
-
                 }
                 else if ((numberOneLess) % 2 == 0)
                 {
@@ -50,14 +43,10 @@ namespace TournamentTracker
                     cannotCompete = true;       // if there is one team left over because odd number of teams: so cannot com
                     numberTeams = numberOneLess;
                 }
-                else
-                {
-                    flag = false;
-                }
             }
             if (leftOutAmount % 2 == 0) // add it to the counter amount
             {
-                counter = counter + leftOutAmount;
+                counter = counter + leftOutAmount; // this leads to wrong solutions
                 leftOutAmount = 0;
                 cannotCompete = false;
 
@@ -73,15 +62,10 @@ namespace TournamentTracker
             }
             Console.WriteLine();
             Console.WriteLine($"With {originalNumber} teams, you can play {counter} rounds");
+            // end
        
-    // **************************************************************************************************************
-            int numberRounds = counter; // s
+            int numberRounds = counter; 
 
-            // numberRounds is the amount of times you press the calculate winner button: decrement after calculating winner
-            // if (numberRounds > 0) then you can calculate winner, else error : no more matches
-            // after calculation of winner: numberRounds--;
-
-            // ***************************************************************************************************
             Classes.Team[] originalTeams = new Classes.Team[originalNumber];
 
             for (int i = 0; i < originalTeams.Length; i++)
@@ -102,11 +86,12 @@ namespace TournamentTracker
             {
                 originalWinners[i] = new Classes.Team();
             }
-            
-            while (true)
+
+            string input = "";
+            while (input != "J")
             {
                 Classes.Menu.TestDisplayMainMenu();
-                string input = Console.ReadLine();
+                input = Console.ReadLine();
                 input = input.ToUpper();
                 input = Classes.ErrorChecking.EnsureEmptyLines(input);
                 input = Classes.ErrorChecking.EnsureLength(input);
@@ -125,6 +110,8 @@ namespace TournamentTracker
                     }
                 }else if (input == "C") //enter team matches
                 {
+                // ***** Matches two teams together into a match or play********************************************************
+                //start
                     for (int i = 0; i < originalMatches.Length; i++)
                     {
                
@@ -171,6 +158,7 @@ namespace TournamentTracker
                         inputMatch = inputMatch.ConvertTeamToMatch(inputMatch, inputOneTeam, inputTwoTeam);
                        
                         originalMatches[i] = inputMatch;
+                    // end
                     }
 
                     
@@ -184,21 +172,30 @@ namespace TournamentTracker
                     Console.WriteLine("Please enter scores by team");
                     for (int i = 0; i < originalTeams.Length; i++)
                     {
-                       
+                       // figure out how to do this when entering scores by match
                         originalTeams[i] = originalTeams[i].EnterTeamScore(originalTeams[i]);
                     }    
                 }else if (input == "E") // calculate winner
                 {
-                    for (int i = 0; i < originalMatches.Length; i++)
+                    if (numberRounds > 0)   // only calculates winners when rounds are left
                     {
-                        originalWinners[i] = originalMatches[i].CompareScores(originalMatches[i].teamOne, originalMatches[i].teamTwo);
+                        for (int i = 0; i < originalMatches.Length; i++)
+                        {
+                            originalWinners[i] = originalMatches[i].CompareScores(originalMatches[i].teamOne, originalMatches[i].teamTwo);
+                        }
+                        numberRounds--;
+                    }else
+                    {
+                        Console.WriteLine("you have zero rounds left to play");
                     }
+                        
                 }else if (input =="F") // display
                 {
-                    while (true)
+                    string displayInput = "";
+                    while (displayInput != "4")
                     {
                         Console.WriteLine("1. Display Teams. 2. Display Matches. 3. Display Winners. 4. Exit");
-                        string displayInput = Console.ReadLine();
+                        displayInput = Console.ReadLine();
                         displayInput = Classes.ErrorChecking.EnsureEmptyLines(displayInput);
                         displayInput = Classes.ErrorChecking.EnsureLength(displayInput);
                         displayInput = Classes.ErrorChecking.EnsureDigit(displayInput);
@@ -224,9 +221,6 @@ namespace TournamentTracker
                                 originalWinners[i].DisplayTeam(originalWinners[i]);
                             }
 
-                        }else if (displayInput == "4")
-                        {
-                            break;
                         }else
                         {
                             Console.WriteLine("Please enter one of the options");
@@ -267,7 +261,7 @@ namespace TournamentTracker
             // ************Displays one round ********************************************
 
 
-            Console.ReadLine();
+            
 
         }
     }
